@@ -105,7 +105,9 @@ These are the functions you will implement:
   - **SetSaturation**
   - **SetLightness**
 
-Start off by implementing all the RGB methods as nothing else will work until this is done. Then we suggest starting to implement the methods in ImageManipulator; the first three are the easiest, the next two are a bit more difficult, and the last four rather tough. Note that you will want to implement all the methods in the HSL class before proceeding to the last three methods in ImageManipulator.
+Start off by implementing all the RGB methods (including clamping in the constructor) as nothing else will work until this is done. Then implement ImageManipulator in this order: **ConvertToGrayScale**, **InvertImage**, and **ConvertToSepia**; then **ConvertToBW** and **RotateImage**; save **InstagramFilter** for last (it is the hardest). Implement all HSL methods before **SetHue**, **SetSaturation**, and **SetLightness**.
+
+When you run **Main** or **UnitTests** from IntelliJ, the working directory is the project root — use paths like `resources/halo.png`, not absolute paths on your computer.
 
 ## Committing your Changes and Turning In The Project
 

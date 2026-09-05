@@ -67,6 +67,8 @@ public class ImageManipulator {
     /**
      * Creates a stylized Black/White image (no gray) from the given image. To do so:
      * 1) calculate the luminance for each pixel. Luminance = (.299 r^2 + .587 g^2 + .114 b^2)^(1/2)
+     *      In Java, {@code ^} is XOR, not exponentiation. Use {@code Math.sqrt(.299 * r * r + .587 * g * g + .114 * b * b)}
+     *      or {@code Math.pow(.299 * r * r + .587 * g * g + .114 * b * b, 0.5)}.
      * 2) find the median luminance
      * 3) each pixel that has luminance >= median_luminance will be white changed to white and each pixel
      *      that has luminance < median_luminance will be changed to black
@@ -79,7 +81,10 @@ public class ImageManipulator {
     }
 
     /**
-     * Rotates the image 90 degrees clockwise.
+     * Rotates the image 90 degrees clockwise. Allocate a new image with width and height swapped
+     * (new width = original height, new height = original width). For each source pixel at
+     * {@code (col, row)}, write it to {@code (height - 1 - row, col)} in the result (using
+     * {@code GetWidth()} / {@code GetHeight()} as needed).
      * @param image image to transform
      * @return image rotated 90 degrees clockwise
      */
@@ -106,7 +111,9 @@ public class ImageManipulator {
      * 3) We add decorative grain by combining our image with a decorative grain image
      *      (resources/decorative_grain.png). We will do this at a .95 / .05 ratio
      *      (95% image, 5% grain).
-     * Tip: build warm-filter pixels with `new RGB(...)` so channels clamp to 0–255 before blending.
+     * Tip: build warm-filter pixels with {@code new RGB(...)} so channels clamp to 0–255 before blending.
+     * Warning: load overlays with relative paths such as {@code resources/halo.png} (project root is the
+     * working directory). Absolute paths like {@code C:\Users\...} fail the grader and other machines.
      * @param image image to transform
      * @return image with a filter
      * @throws IOException
