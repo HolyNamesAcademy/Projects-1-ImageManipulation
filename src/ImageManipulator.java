@@ -55,7 +55,7 @@ public class ImageManipulator {
      * to get the new channel values:
      * r = .393r + .769g + .189b
      * g = .349r + .686g + .168b
-     * b = 272r + .534g + .131b
+     * b = .272r + .534g + .131b
      * @param image image to transform
      * @return image transformed to sepia
      */
@@ -95,12 +95,18 @@ public class ImageManipulator {
      *          r = r * 1.2
      *          g = g
      *          b = b / 1.5
-     * 2) We add a vignette (a black gradient around the border) by combining our image with an
+     * 2) We add a vignette (a black gradient around the border) by combining our image with
      *      an image of a halo (you can see the image at resources/halo.png). We take 65% of our
      *      image and 35% of the halo image. For example:
      *          r = .65 * r_image + .35 * r_halo
+     *      The halo/grain images may be a different size than your photo. Scale the overlay
+     *      coordinates proportionally, for example:
+     *          overlayCol = col * overlay.GetWidth() / image.GetWidth()
+     *          overlayRow = row * overlay.GetHeight() / image.GetHeight()
      * 3) We add decorative grain by combining our image with a decorative grain image
-     *      (resources/decorative_grain.png). We will do this at a .95 / .5 ratio.
+     *      (resources/decorative_grain.png). We will do this at a .95 / .05 ratio
+     *      (95% image, 5% grain).
+     * Tip: build warm-filter pixels with `new RGB(...)` so channels clamp to 0–255 before blending.
      * @param image image to transform
      * @return image with a filter
      * @throws IOException

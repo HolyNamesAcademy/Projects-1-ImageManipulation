@@ -100,12 +100,12 @@ These are the functions you will implement:
   - **ConvertToSepia**
   - **ConvertToBW**
   - **RotateImage**
-  - **InstagramFilter**
+  - **InstagramFilter** (hardest: warm filter + blend with `resources/halo.png` and `resources/decorative_grain.png`. Those overlay images may be a different size than your photo — see the method comment for how to scale coordinates.)
   - **SetHue**
   - **SetSaturation**
   - **SetLightness**
 
-Start off by implementing all the RGB methods as nothing else will work until this is done. Then we suggest starting to implenting the methods in ImageManipulator; the first three are the easiest, the next two are a bit more difficult, and the last four rather tough. Note that you will want to implement all the methods in the HSL class before proceeding to the last three methods in ImageManipulator.
+Start off by implementing all the RGB methods as nothing else will work until this is done. Then we suggest starting to implement the methods in ImageManipulator; the first three are the easiest, the next two are a bit more difficult, and the last four rather tough. Note that you will want to implement all the methods in the HSL class before proceeding to the last three methods in ImageManipulator.
 
 ## Committing your Changes and Turning In The Project
 
