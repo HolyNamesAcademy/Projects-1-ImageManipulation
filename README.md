@@ -100,12 +100,12 @@ These are the functions you will implement:
   - **ConvertToSepia**
   - **ConvertToBW**
   - **RotateImage**
-  - **InstagramFilter** (hardest: warm filter + blend with `resources/halo.png` and `resources/decorative_grain.png`. Those overlay images may be a different size than your photo — see the method comment for how to scale coordinates.)
+  - **InstagramFilter** (hardest: warm filter + blend with `resources/halo.png` and `resources/decorative_grain.png`. Overlay size may differ from your photo.)
   - **SetHue**
   - **SetSaturation**
   - **SetLightness**
 
-Start off by implementing all the RGB methods (including clamping in the constructor) as nothing else will work until this is done. Then implement ImageManipulator in this order: **ConvertToGrayScale**, **InvertImage**, and **ConvertToSepia**; then **ConvertToBW** and **RotateImage**; save **InstagramFilter** for last (it is the hardest). Implement all HSL methods before **SetHue**, **SetSaturation**, and **SetLightness**.
+Start off by implementing all the RGB methods (including clamping in the constructor) as nothing else will work until this is done. Then we suggest starting with the earlier ImageManipulator methods and saving InstagramFilter for last. Implement all HSL methods before SetHue / SetSaturation / SetLightness.
 
 When you run **Main** or **UnitTests** from IntelliJ, the working directory is the project root — use paths like `resources/halo.png`, not absolute paths on your computer.
 

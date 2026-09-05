@@ -67,8 +67,7 @@ public class ImageManipulator {
     /**
      * Creates a stylized Black/White image (no gray) from the given image. To do so:
      * 1) calculate the luminance for each pixel. Luminance = (.299 r^2 + .587 g^2 + .114 b^2)^(1/2)
-     *      In Java, {@code ^} is XOR, not exponentiation. Use {@code Math.sqrt(.299 * r * r + .587 * g * g + .114 * b * b)}
-     *      or {@code Math.pow(.299 * r * r + .587 * g * g + .114 * b * b, 0.5)}.
+     *      In Java, {@code ^} is XOR, not power — use {@code Math.sqrt} / {@code Math.pow} for squares and roots.
      * 2) find the median luminance
      * 3) each pixel that has luminance >= median_luminance will be white changed to white and each pixel
      *      that has luminance < median_luminance will be changed to black
@@ -81,10 +80,9 @@ public class ImageManipulator {
     }
 
     /**
-     * Rotates the image 90 degrees clockwise. Allocate a new image with width and height swapped
-     * (new width = original height, new height = original width). For each source pixel at
-     * {@code (col, row)}, write it to {@code (height - 1 - row, col)} in the result (using
-     * {@code GetWidth()} / {@code GetHeight()} as needed).
+     * Rotates the image 90 degrees clockwise. The result has swapped dimensions
+     * (new width = original height, new height = original width). Figure out where each
+     * source pixel should land in the new image.
      * @param image image to transform
      * @return image rotated 90 degrees clockwise
      */
@@ -100,20 +98,18 @@ public class ImageManipulator {
      *          r = r * 1.2
      *          g = g
      *          b = b / 1.5
+     *      Building pixels with {@code new RGB(...)} keeps channels in range.
      * 2) We add a vignette (a black gradient around the border) by combining our image with
-     *      an image of a halo (you can see the image at resources/halo.png). We take 65% of our
+     *      an image of a halo at {@code resources/halo.png}. We take 65% of our
      *      image and 35% of the halo image. For example:
      *          r = .65 * r_image + .35 * r_halo
-     *      The halo/grain images may be a different size than your photo. Scale the overlay
-     *      coordinates proportionally, for example:
-     *          overlayCol = col * overlay.GetWidth() / image.GetWidth()
-     *          overlayRow = row * overlay.GetHeight() / image.GetHeight()
+     *      The halo/grain images may be a different size than your photo — scale coordinates
+     *      so every image pixel maps into the overlay.
      * 3) We add decorative grain by combining our image with a decorative grain image
-     *      (resources/decorative_grain.png). We will do this at a .95 / .05 ratio
+     *      ({@code resources/decorative_grain.png}). We will do this at a .95 / .05 ratio
      *      (95% image, 5% grain).
-     * Tip: build warm-filter pixels with {@code new RGB(...)} so channels clamp to 0–255 before blending.
-     * Warning: load overlays with relative paths such as {@code resources/halo.png} (project root is the
-     * working directory). Absolute paths like {@code C:\Users\...} fail the grader and other machines.
+     * Warning: use relative paths like {@code resources/halo.png} (project root working directory).
+     * Absolute paths like {@code C:\Users\...} fail the grader and other machines.
      * @param image image to transform
      * @return image with a filter
      * @throws IOException
